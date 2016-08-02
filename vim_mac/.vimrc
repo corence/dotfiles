@@ -6,16 +6,17 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+"Plugin 'bling/vim-bufferline'
+Plugin '2072/PHP-Indenting-for-VIm'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'bitc/vim-hdevtools'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jasoncodes/ctrlp-modified.vim'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'pangloss/vim-javascript'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'bitc/vim-hdevtools'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin '2072/PHP-Indenting-for-VIm'
-Plugin 'pangloss/vim-javascript'
 
 call vundle#end()
 
@@ -195,13 +196,14 @@ nnoremap v mv
 onoremap v `v
 onoremap V 'v
 
-inoreabbrev FF for(int i=0; i<; ++i)
-inoreabbrev TT System.currentTimeMillis()
-inoreabbrev PP System.out.println("xxyyzz
-inoreabbrev LL LogWork()->Place(
+"inoreabbrev FF for(int i=0; i<; ++i)
+"inoreabbrev TT System.currentTimeMillis()
+"inoreabbrev PP System.out.println("xxyyzz
+"inoreabbrev LL LogWork()->Place(
 inoreabbrev _S _SESSION
 inoreabbrev _P _GET
 inoreabbrev _G _POST
+inoreabbrev _R _REQUEST
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -219,7 +221,7 @@ nnoremap <Leader>7 :%s/\V192.168.1.\[^:]\*/127.0.0.1/g<C-M>
 nnoremap <Leader>6 :%s/\V127.0.0.1/61.9.201.173/g<C-M>
 nnoremap <Leader>5 :%s/\V61.9.201.173/192.168.1.246/g<C-M>
 " 60.229.111.241
-nnoremap <Leader>d :set diff<C-M>:set go+=b<C-M>:nnoremap  :diffu<C-M>:noh<C-M>
+nnoremap <Leader>d :set fdm=diff<C-M>:set scrollbind<C-M>:set nowrap<C-M>:set diff<C-M>:set go+=b<C-M>:nnoremap <C-L> :diffu<C-M>:noh<C-M><C-L>
 nnoremap <Leader>D :browse vert diffs<C-M>
 nnoremap <Leader><C-d> :diffu<C-M>
 nnoremap <Leader>r :set readonly<C-M>:set nomodifiable<C-M>
@@ -257,6 +259,10 @@ nnoremap <C-`> :e #<CR>
 nnoremap <M-`> :e #<CR>
 nnoremap <C-~> :e #<CR>
 nnoremap `<Tab> :e #<CR>
+
+
+nnoremap [l :lprevious<C-M>
+nnoremap ]l :lnext<C-M>
 
 nnoremap o :set fo-=o<C-M>o
 nnoremap O :set fo-=o<C-M>O

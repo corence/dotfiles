@@ -1,5 +1,12 @@
 source ~/.bashrc
 
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+      fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
 ### Git Auto completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
@@ -57,6 +64,7 @@ alias aapi="echo asapi or auapi"
 alias auapi="cd ~/salt-developer/code/api/author"
 alias asite="cd ~/salt-developer/code/site/author"
 alias sapi="cd ~/salt-developer/code/api/schemas"
+alias sapiq="cd ~/salt-developer/code/api/schemas/src/data/questions"
 alias asapi="cd ~/salt-developer/code/api/assess/"
 alias assess="cd ~/salt-developer/code/api/assess/"
 alias scoring="cd ~/salt-developer/code/service/scoring"
@@ -68,17 +76,20 @@ alias iso="cd ~/salt-developer/code/site/docs/www/demos/isolation"
 alias isor="cd ~/salt-developer/code/site/docs/www/demos/isolation/regions"
 alias demos="cd ~/salt-developer/code/site/demos"
 alias dapi="cd ~/salt-developer/code/api/data"
-alias libscoring="cd ~/salt-developer/code/api/questionsV2/www/latest/vendor/scoring"
+alias libscoring="cd ~/salt-developer/code/lib/scoring"
+alias lscor="libscoring"
 alias sstates="cd ~/salt-developer/code/salt-states"
 alias mathquill="cd ~/workspace/mathquill"
 alias rui="./node_modules/.bin/grunt php:test:keepalive"
-alias tui="vgtest run -t test-ui-env -b chrome -e vg"
+alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
 
 alias vgupdate="! lsof ~/salt-developer/code/ && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 3"
 alias vgreboot="! lsof ~/salt-developer/code/ && cd ~/salt-developer && vagrant halt && vagrant up"
 
-alias bridget="salt && echo y | ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
+alias bridget="salt && ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
+
+alias sim="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
 #Shortcut to the script to connect to the VPN when working from home
 alias sydvpn="cd ~ && osascript sydneyOffice.scpt"
@@ -232,4 +243,22 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
-alias v='f -e vim' # quick opening files with vim
+alias v='f -t -e vim -b viminfo'
+
+function slowdown  {
+    pid=`ps aux | grep $1 | grep -v grep | awk {'print $2'}` 
+    if [ $pid ]
+    then
+        echo $pid
+        echo ps aux | grep $pid
+        echo renice $2 $pid
+    fi
+}
+
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack 4; slowdown SophosScanD 16'
+
+function tobranch {
+    git fetch
+    git checkout $1
+    gpb
+}
