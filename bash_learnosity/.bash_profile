@@ -15,6 +15,7 @@ fi
 ### Aliases
 
 alias vg='vagrant'
+alias ag='ag -s'
 
 # Open specified files in Sublime Text
 # "s ." will open the current directory in Sublime
@@ -31,18 +32,18 @@ alias la="ls -laGF " # all files inc dotfiles, in long format
 alias lsd='ls -lGF | grep "^d"' # only directories
 
 # Quicker navigation
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
-alias .......="cd ../../../../../.."
-alias ........="cd ../../../../../../.."
-alias .........="cd ../../../../../../../.."
-alias ..........="cd ../../../../../../../../.."
-alias ...........="cd ../../../../../../../../../.."
-alias ............="cd ../../../../../../../../../../.."
-alias .............="cd ../../../../../../../../../../../.."
+alias ..="cd ..; ls"
+alias ...="cd ../..; ls"
+alias ....="cd ../../..; ls"
+alias .....="cd ../../../..; ls"
+alias ......="cd ../../../../..; ls"
+alias .......="cd ../../../../../..; ls"
+alias ........="cd ../../../../../../..; ls"
+alias .........="cd ../../../../../../../..; ls"
+alias ..........="cd ../../../../../../../../..; ls"
+alias ...........="cd ../../../../../../../../../..; ls"
+alias ............="cd ../../../../../../../../../../..; ls"
+alias .............="cd ../../../../../../../../../../../..; ls"
 
 
 # Alias to salt developer
@@ -53,6 +54,8 @@ alias salthalt="cd ~/salt-developer && vagrant halt"
 alias vssh="vgutil ssh"
 alias update="cd ~/salt-developer && vgutil update"
 alias highstate="cd ~/salt-developer && vgutil highstate"
+
+alias edited="vim \$(git diff --name-only)"
 
 # Shortcuts to folders in my home directory
 alias code="cd ~/salt-developer/code"
@@ -84,7 +87,7 @@ alias rui="./node_modules/.bin/grunt php:test:keepalive"
 alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
 
-alias vgupdate="! lsof ~/salt-developer/code/ && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 3"
+alias vgupdate="! lsof ~/salt-developer/code/ && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 4"
 alias vgreboot="! lsof ~/salt-developer/code/ && cd ~/salt-developer && vagrant halt && vagrant up"
 
 alias bridget="salt && ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
@@ -108,8 +111,8 @@ alias gadd='git add ' # . or something specific
 alias gcommit='git commit -m' # requires you to type a commit message
 alias gpush='git push origin ' # branch name
 alias gsu='git submodule update'
-alias gp='git pull && gsu && git status'
-alias gpb='git pull && gsu && vgbuild dev && git status'
+#alias gp='git pull && gsu && git status'
+#alias gpb='git pull && gsu && vgbuild dev && git status'
 alias v2dev='git checkout V2-develop && gpb'
 alias dev='git checkout develop && gpb'
 alias gbranch='git branch'
@@ -255,10 +258,22 @@ function slowdown  {
     fi
 }
 
-alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack 4; slowdown SophosScanD 16'
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack 4; slowdown SophosScanD 16; vgutil run "sudo service kinesalite stop"'
 
-function tobranch {
-    git fetch
-    git checkout $1
-    gpb
+function gp {
+    if [ $1 ]
+    then
+        git fetch
+        git checkout $1
+    fi
+    git pull && git submodule update; git status
+}
+
+function gpb {
+    if [ $1 ]
+    then
+        git fetch
+        git checkout $1
+    fi
+    git pull && git submodule update && vgbuild dev; git status
 }

@@ -452,7 +452,9 @@ inoremap <M-/> <C-P>
 noremap <F4> :cn<C-M>
 noremap <F3> :cN<C-M>
 noremap <S-F4> :cnf<C-M>
+noremap g<F4> :cnf<C-M>
 noremap <S-F3> :cNf<C-M>
+noremap g<F3> :cNf<C-M>
 noremap <C-F4> :tn<C-M>
 noremap <C-F3> :tN<C-M>
 
