@@ -250,7 +250,7 @@ alias v='f -t -e vim -b viminfo'
 
 function slowdown  {
     pid=`ps aux | grep $1 | grep -v grep | awk {'print $2'}` 
-    if [ $pid ]
+    if [[ $pid ]]
     then
         echo $pid
         echo ps aux | grep $pid
@@ -258,7 +258,7 @@ function slowdown  {
     fi
 }
 
-alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack 4; slowdown SophosScanD 16; vgutil run "sudo service kinesalite stop"'
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown SophosScanD 16; vgutil run "sudo service kinesalite stop"'
 
 function gp {
     if [ $1 ]
