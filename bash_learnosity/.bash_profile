@@ -55,6 +55,8 @@ alias vssh="vgutil ssh"
 alias update="cd ~/salt-developer && vgutil update"
 alias highstate="cd ~/salt-developer && vgutil highstate"
 
+alias git="~/.git_wrapper.sh"
+
 alias edited="vim \$(git diff --name-only)"
 
 # Shortcuts to folders in my home directory
@@ -90,7 +92,7 @@ alias vpnp="echo shanty census freeware homesick"
 alias vgupdate="! lsof ~/salt-developer/code/ && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 4"
 alias vgreboot="! lsof ~/salt-developer/code/ && cd ~/salt-developer && vagrant halt && vagrant up"
 
-alias bridget="salt && ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
+alias bridget="cd ~/salt-developer && ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
 
 alias sim="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
