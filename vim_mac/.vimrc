@@ -8,6 +8,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 "Plugin 'bling/vim-bufferline'
 Plugin '2072/PHP-Indenting-for-VIm'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bitc/vim-hdevtools'
 Plugin 'ctrlpvim/ctrlp.vim'
