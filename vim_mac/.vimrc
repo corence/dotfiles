@@ -230,12 +230,14 @@ nnoremap <Leader>R :set noreadonly<C-M>:set modifiable<C-M>
 nnoremap <Leader>P yaWPE<C-A>
 nnoremap <Leader>b :set nowrap<C-M>:set go+=b<C-M>
 nnoremap <Leader>a :g/\v^(.*arrived after)@!/normal dd/<C-M>
-nnoremap <Leader>j "*P/service:<C-M>"*y$
+" nnoremap <Leader>j "*P/service:<C-M>"*y$
 nnoremap <Leader>T /\v\[([^:]+:){2}(..).*\n\zs\[([^:]+:){2}\2@!...<C-M>
 nnoremap <Leader>c :cd /<C-M>:cd %:h<C-M>:pwd<C-M>
 nnoremap <Leader>C :cd /<C-M>:cd %:h<C-M>:cd ..<C-M>:pwd<C-M>
 nnoremap <Leader>q P0<C-A>yy0
-nnoremap <Leader>j :%s={={\r=ge<C-M>:%s=}=\r}=ge<C-M>:%s=,=,\r=ge<C-M>gg=G:noh<CR><C-L>
+" nnoremap <Leader>j :%s={={\r=ge<C-M>:%s=}=\r}=ge<C-M>:%s=,=,\r=ge<C-M>gg=G:noh<CR><C-L>
+nnoremap <Leader>j !!python -mjson.tool<C-M>
+vnoremap <Leader>j !python -mjson.tool<C-M>
 nnoremap <Leader>n :NERDTreeToggle<C-M>
 
 nnoremap <Leader>s{ :%s=\V{={\r=ge<C-M>:%s=\V}=\r}=ge<C-M>:%s=\v,\s*\ze\S=,\r=ge<C-M>gg=G:noh<CR><C-L>

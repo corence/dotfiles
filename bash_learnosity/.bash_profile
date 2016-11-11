@@ -251,21 +251,16 @@ alias zz='fasd_cd -d -i' # cd with interactive selection
 alias v='f -t -e vim -b viminfo'
 
 function slowdown  {
-    pid=`ps aux | grep $1 | grep -v grep | awk {'print $2'}` 
-    if [[ $pid ]]
-    then
-        echo $pid
-        echo ps aux | grep $pid
-        echo renice $2 $pid
-    fi
+    echo "renicing $1"
+    pgrep -f $1 | xargs -L1 sudo renice $2 
 }
 
-alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown SophosScanD 16; vgutil run "sudo service kinesalite stop"'
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown Sophos 16; vgutil run "sudo service kinesalite stop"'
 
 function gp {
     if [ $1 ]
     then
-        git fetch
+        git fetch --tags
         git checkout $1
     fi
     git pull && git submodule update; git status
@@ -274,8 +269,10 @@ function gp {
 function gpb {
     if [ $1 ]
     then
-        git fetch
+        git fetch --tags
         git checkout $1
     fi
     git pull && git submodule update && vgbuild dev; git status
 }
+
+alias gb='git submodule update && vgbuild dev'
