@@ -20,7 +20,7 @@ alias ag='ag -s'
 # Open specified files in Sublime Text
 # "s ." will open the current directory in Sublime
 alias s='open -a "Sublime Text"'
-alias bp='vim ~/.bash_profile && source ~/.bash_profile'
+alias bp='vim ~/.bash_profile && source ~/.bash_profile && woah'
 alias bprofile='source ~/.bash_profile'
 
 # Color LS
@@ -81,16 +81,18 @@ alias iso="cd ~/salt-developer/code/site/docs/www/demos/isolation"
 alias isor="cd ~/salt-developer/code/site/docs/www/demos/isolation/regions"
 alias demos="cd ~/salt-developer/code/site/demos"
 alias dapi="cd ~/salt-developer/code/api/data"
-alias libscoring="cd ~/salt-developer/code/lib/scoring"
-alias lscor="libscoring"
+alias lscor="cd ~/salt-developer/code/lib/scoring"
+alias qscor="cd ~/salt-developer/code/api/questionsV2/www/latest/vendor/scoring"
 alias sstates="cd ~/salt-developer/code/salt-states"
 alias mathquill="cd ~/workspace/mathquill"
 alias rui="./node_modules/.bin/grunt php:test:keepalive"
 alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
 
-alias vgupdate="! lsof ~/salt-developer/code/ && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 4"
-alias vgreboot="! lsof ~/salt-developer/code/ && cd ~/salt-developer && vagrant halt && vagrant up"
+alias vgupdate="vgwhat && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 4"
+alias vgreboot="vgwhat && vghalt && vagrant up"
+alias vghalt="vgwhat && cd ~/salt-developer && vagrant halt"
+alias vgwhat="! lsof ~/salt-developer/code/"
 
 alias bridget="cd ~/salt-developer && ./scripts/enable-bridge \$(route get google.com | grep interface | sed s/interface:\ //)"
 
@@ -276,3 +278,4 @@ function gpb {
 }
 
 alias gb='git submodule update && vgbuild dev'
+alias vgd='vim $(git diff --name-only)'

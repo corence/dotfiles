@@ -103,6 +103,8 @@ set matchtime=2
 
 set cino=c0
 
+set scrolloff=1
+
 " Searching options
 "set smartcase
 "set ignorecase
