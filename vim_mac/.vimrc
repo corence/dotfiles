@@ -18,6 +18,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
 
 call vundle#end()
 
@@ -215,7 +216,7 @@ command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | di
 let mapleader = "'"
 map '' <Leader>_
 map <Leader>- <Leader>_
-nnoremap <Leader>t :Tlist<C-M>
+" nnoremap <Leader>t :Tlist<C-M>
 " nnoremap <Leader>_ :e ~/_vimrc<C-M>
 nnoremap <Leader>_ :e ~/.vimrc<C-M>
 nnoremap <Leader>; yy:<C-R>"<BS><C-M>
@@ -231,7 +232,7 @@ nnoremap <Leader>r :set readonly<C-M>:set nomodifiable<C-M>
 nnoremap <Leader>R :set noreadonly<C-M>:set modifiable<C-M>
 nnoremap <Leader>P yaWPE<C-A>
 nnoremap <Leader>b :set nowrap<C-M>:set go+=b<C-M>
-nnoremap <Leader>a :g/\v^(.*arrived after)@!/normal dd/<C-M>
+" nnoremap <Leader>a :g/\v^(.*arrived after)@!/normal dd/<C-M>
 " nnoremap <Leader>j "*P/service:<C-M>"*y$
 nnoremap <Leader>T /\v\[([^:]+:){2}(..).*\n\zs\[([^:]+:){2}\2@!...<C-M>
 nnoremap <Leader>c :cd /<C-M>:cd %:h<C-M>:pwd<C-M>
@@ -240,7 +241,22 @@ nnoremap <Leader>q P0<C-A>yy0
 " nnoremap <Leader>j :%s={={\r=ge<C-M>:%s=}=\r}=ge<C-M>:%s=,=,\r=ge<C-M>gg=G:noh<CR><C-L>
 nnoremap <Leader>j !!python -mjson.tool<C-M>
 vnoremap <Leader>j !python -mjson.tool<C-M>
+nnoremap <Leader>p :s/: / => /gce<C-M>:s/\V{/[/gce<C-M>:s/\V}/]/gce<C-M>
+vnoremap <Leader>p :s/: / => /gce<C-M>:s/\V{/[/gce<C-M>:s/\V}/]/gce<C-M>
 nnoremap <Leader>n :NERDTreeToggle<C-M>
+
+if exists(":Tabularize")
+  nmap <Leader>t= :Tabularize /=<CR>
+  vmap <Leader>t= :Tabularize /=<CR>
+  nmap <Leader>t: :Tabularize /:\zs<CR>
+  vmap <Leader>t: :Tabularize /:\zs<CR>
+  nmap <Leader>tc :Tabularize /\|<CR>
+  vmap <Leader>tc :Tabularize /\|<CR>
+  nmap <Leader>tp :Tabularize /\|<CR>
+  vmap <Leader>tp :Tabularize /\|<CR>
+  nmap <Leader>t\| :Tabularize /\|<CR>
+  vmap <Leader>t\| :Tabularize /\|<CR>
+endif
 
 nnoremap <Leader>s{ :%s=\V{={\r=ge<C-M>:%s=\V}=\r}=ge<C-M>:%s=\v,\s*\ze\S=,\r=ge<C-M>gg=G:noh<CR><C-L>
 nmap <Leader>s} s{
@@ -438,8 +454,8 @@ nnoremap <PageUp> <C-U>
 
 " map <2-LeftMouse> :call DoubleClick()<CR>
 map <C-LeftMouse> ".P
-nmap <Space> i <Esc>
-nmap <CR> i<CR><Esc>
+" nmap <Space> i <Esc>
+" nmap <CR> i<CR><Esc>
 nnoremap <S-CR> o<Esc>
 noremap <C-S> :wall<CR>
 

@@ -85,11 +85,11 @@ alias lscor="cd ~/salt-developer/code/lib/scoring"
 alias qscor="cd ~/salt-developer/code/api/questionsV2/www/latest/vendor/scoring"
 alias sstates="cd ~/salt-developer/code/salt-states"
 alias mathquill="cd ~/workspace/mathquill"
-alias rui="./node_modules/.bin/grunt php:test:keepalive"
+alias rui="make serve-local"
 alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
 
-alias vgupdate="vgwhat && cd ~/salt-developer && git checkout master && git pull && ! ./scripts/upgrade-salt-dev 4"
+alias vgupdate="vgwhat && cd ~/salt-developer && git checkout master && git pull --tags && ./scripts/bootstrap.sh"
 alias vgreboot="vgwhat && vghalt && vagrant up"
 alias vghalt="vgwhat && cd ~/salt-developer && vagrant halt"
 alias vgwhat="! lsof ~/salt-developer/code/"
@@ -117,12 +117,12 @@ alias gpush='git push origin ' # branch name
 alias gsu='git submodule update'
 #alias gp='git pull && gsu && git status'
 #alias gpb='git pull && gsu && vgbuild dev && git status'
-alias v2dev='git checkout V2-develop && gpb'
-alias dev='git checkout develop && gpb'
+alias v2dev='gpb V2-develop'
+alias dev='gpb develop'
 alias gbranch='git branch'
 alias deletebranch='git branch -D ' # branch name
 alias gstash='git stash'
-alias v3dev='git checkout V3-develop && gpb'
+alias v3dev='gpb V3-develop'
 alias mw='vgutil ssh && make watch'
 
 gc() {
@@ -191,6 +191,7 @@ function parse_git_branch() {
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
 symbol="⚡ "
 
+#export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\n$symbol\[$RESET\]"
 export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
 
@@ -257,7 +258,7 @@ function slowdown  {
     pgrep -f $1 | xargs -L1 sudo renice $2 
 }
 
-alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown Sophos 16; vgutil run "sudo service kinesalite stop"'
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown Sophos 16; slowdown firefox$ 2; vgutil run "cd /srv/site/docs; git status > /dev/null"'
 
 function gp {
     if [ $1 ]
