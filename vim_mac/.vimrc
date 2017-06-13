@@ -19,14 +19,21 @@ Plugin 'qpkorr/vim-bufkill'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'godlygeek/tabular'
+"Plugin 'neovimhaskell/haskell-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/tpope-vim-abolish'
+Plugin 'vim-scripts/LargeFile'
 
 call vundle#end()
 
 filetype plugin indent on
 syntax on
 
+let g:vim_markdown_fenced_languages = ['haskell', 'java', 'javascript', 'ruby']
+let g:markdown_fenced_languages = ['haskell', 'java', 'javascript', 'ruby']
+
 let g:ctrlp_map = "gQ"
-let g:ctrlp_mruf_max = 888
+let g:ctrlp_mruf_max = 2888
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
                                       \ --ignore .git
                                       \ --ignore .DS_Store
@@ -34,6 +41,23 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
                                       \ --ignore-dir "node_modules"
                                       \ -g ""'
 
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+"let g:haskell_indent_if = 3
+"let g:haskell_indent_case = 2
+"let g:haskell_indent_let = 4
+let g:haskell_indent_where = -1
+"let g:haskell_indent_before_where = 2
+"let g:haskell_indent_after_bare_where = 2
+"let g:haskell_indent_do = 3
+"let g:haskell_indent_in = 1
+"let g:haskell_indent_guard = 2
 
 let g:skip_loading_mswin=1
 let g:java_allow_cpp_keywords=1
@@ -43,6 +67,10 @@ let g:java_allow_cpp_keywords=1
 let g:syntastic_aggregate_errors = 1 
 let g:syntastic_id_checkers = 0
 autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
+autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
+autocmd FileType haskell let b:syntastic_checkers = ['hdevtools']
+let g:syntastic_html_tidy_ignore_errors = [ ' proprietary attribute ' ]
+
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -242,7 +270,7 @@ nnoremap <Leader>q P0<C-A>yy0
 nnoremap <Leader>j !!python -mjson.tool<C-M>
 vnoremap <Leader>j !python -mjson.tool<C-M>
 nnoremap <Leader>p :s/: / => /gce<C-M>:s/\V{/[/gce<C-M>:s/\V}/]/gce<C-M>
-vnoremap <Leader>p :s/: / => /gce<C-M>:s/\V{/[/gce<C-M>:s/\V}/]/gce<C-M>
+vnoremap <Leader>p :s/: / => /gce<C-M>:'<,'>s/\V{/[/gce<C-M>:'<,'>s/\V}/]/gce<C-M>
 nnoremap <Leader>n :NERDTreeToggle<C-M>
 
 if exists(":Tabularize")
@@ -270,6 +298,8 @@ nnoremap <M-Right> :bn<C-M>
 
 nnoremap <M-D> :g/\v^(.*
 cnoremap <M-D> \v)@!/normal dd/
+
+cnoremap <C-A> <C-B>
 
 nnoremap zx zt12<C-Y>
 nnoremap zX zb12<C-E>

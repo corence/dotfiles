@@ -67,7 +67,8 @@ alias qt="cd ~/salt-developer/code/api/questionsV2/www/latest/tests"
 alias qeapi="cd ~/salt-developer/code/api/questioneditor"
 alias aapi="echo asapi or auapi"
 alias auapi="cd ~/salt-developer/code/api/author"
-alias asite="cd ~/salt-developer/code/site/author"
+alias asite="ausite"
+alias ausite="cd ~/salt-developer/code/site/author"
 alias sapi="cd ~/salt-developer/code/api/schemas"
 alias sapiq="cd ~/salt-developer/code/api/schemas/src/data/questions"
 alias asapi="cd ~/salt-developer/code/api/assess/"
@@ -76,7 +77,7 @@ alias scoring="cd ~/salt-developer/code/service/scoring"
 alias iapi="cd ~/salt-developer/code/api/items"
 alias api="cd ~/salt-developer/code/api/"
 alias rapi="cd ~/salt-developer/code/api/reports"
-alias docs="cd ~/salt-developer/code/site/docs"
+alias docs="woahdocs; cd ~/salt-developer/code/site/docs"
 alias iso="cd ~/salt-developer/code/site/docs/www/demos/isolation"
 alias isor="cd ~/salt-developer/code/site/docs/www/demos/isolation/regions"
 alias demos="cd ~/salt-developer/code/site/demos"
@@ -88,6 +89,7 @@ alias mathquill="cd ~/workspace/mathquill"
 alias rui="make serve-local"
 alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
+alias serve="php -S localhost:8000"
 
 alias vgupdate="vgwhat && cd ~/salt-developer && git checkout master && git pull --tags && ./scripts/bootstrap.sh"
 alias vgreboot="vgwhat && vghalt && vagrant up"
@@ -258,7 +260,8 @@ function slowdown  {
     pgrep -f $1 | xargs -L1 sudo renice $2 
 }
 
-alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown Sophos 16; slowdown firefox$ 2; vgutil run "cd /srv/site/docs; git status > /dev/null"'
+alias woah='slowdown VBoxHeadless 10; slowdown VirtualBoxVM 10; slowdown Slack$ 4; slowdown Sophos 16; slowdown firefox$ 2; woahdocs'
+alias woahdocs='vgutil run "cd /srv/site/docs; git status > /dev/null"'
 
 function gp {
     if [ $1 ]
@@ -280,3 +283,6 @@ function gpb {
 
 alias gb='git submodule update && vgbuild dev'
 alias vgd='vim $(git diff --name-only)'
+
+alias stalemate='while :; do :; done& while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&'
+alias checkmate='kill $(jobs -p)'
