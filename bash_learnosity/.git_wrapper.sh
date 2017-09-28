@@ -8,4 +8,11 @@ for arg in "$@"; do
 	fi
 done
 
+#if [[ "$PWD" =~ ~/salt-developer/code ]]
+#then
+    #vgutil ssh git "$@"
+#else
+    #git "$@"
+#fi
+
 git "$@"

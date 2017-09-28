@@ -7,7 +7,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 "Plugin 'bling/vim-bufferline'
+Plugin 'elmcast/elm-vim'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin '2072/PHP-Indenting-for-VIm'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bitc/vim-hdevtools'
@@ -66,10 +69,11 @@ let g:java_allow_cpp_keywords=1
 
 let g:syntastic_aggregate_errors = 1 
 let g:syntastic_id_checkers = 0
-autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
-autocmd FileType javascript let b:syntastic_checkers = findfile('.jscsrc', '.;') != '' ? ['jscs', 'jshint'] : ['jshint']
+autocmd FileType javascript let b:syntastic_checkers = ['eslint']
 autocmd FileType haskell let b:syntastic_checkers = ['hdevtools']
-let g:syntastic_html_tidy_ignore_errors = [ ' proprietary attribute ' ]
+let g:syntastic_html_tidy_ignore_errors = [' proprietary attribute ']
+
+autocmd BufEnter * EnableStripWhitespaceOnSave
 
 
 set statusline+=%#warningmsg#
@@ -362,7 +366,7 @@ nnoremap <silent> <M-z> :execute ':cscope find s <cword>'<C-M>
 
 " source C:/core/codex/cscope_maps.vim
 
-set grepprg=ag\ \"$*\"
+set grepprg=ag\ -s\ \"$*\"
 " set grepprg=grep\ -nHIr\ \"$*\"\ *\ \\\|\ grep\ -v\ ^\\.svn\ \\\|\ grep\ -v\ \\development.log\ \\\|\ grep\ -v\ ^\\_svn\ \\\|\ grep\ -v\ \.dump\ \\\|\ grep\ -v\ cscope\.out\ \\\|\ grep\ -v\ tags
 " set grepprg=grep\ -nHiIr\ \"$*\"\ *\ \\\|\ grep\ -v\ ^\\_svn\ \\\|\ grep\ -v\ cscope\.out\ \\\|\ grep\ -v\ tags
 " set grepprg="grep\ -nHi\ $*\ *.%:e?"
@@ -569,5 +573,5 @@ set listchars=tab:>-
 
   " I like highlighting strings inside C comments
      let c_comment_strings=1
-     
+
 let macvim_skip_colorscheme=1

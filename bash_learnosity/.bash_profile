@@ -31,6 +31,8 @@ alias l="ls -lGF " # all files, in long format
 alias la="ls -laGF " # all files inc dotfiles, in long format
 alias lsd='ls -lGF | grep "^d"' # only directories
 
+alias ip="ifconfig | rg '(inet)|(^[A-Za-z])'"
+
 # Quicker navigation
 alias ..="cd ..; ls"
 alias ...="cd ../..; ls"
@@ -80,6 +82,9 @@ alias rapi="cd ~/salt-developer/code/api/reports"
 alias docs="woahdocs; cd ~/salt-developer/code/site/docs"
 alias iso="cd ~/salt-developer/code/site/docs/www/demos/isolation"
 alias isor="cd ~/salt-developer/code/site/docs/www/demos/isolation/regions"
+alias docsp="cd ~/salt-developer/code/site/docs/www/demos/products"
+alias docsqe="cd ~/salt-developer/code/site/docs/www/demos/products/questioneditorapi/v3"
+alias asf="cd ~/salt-developer/code/site/docs/www/demos/products/questionsapi"
 alias demos="cd ~/salt-developer/code/site/demos"
 alias dapi="cd ~/salt-developer/code/api/data"
 alias lscor="cd ~/salt-developer/code/lib/scoring"
@@ -91,8 +96,10 @@ alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
 alias vpnp="echo shanty census freeware homesick"
 alias serve="php -S localhost:8000"
 
+alias prodbuild="perl -pi -e 's/^mode=development$/mode=production/' config/system-config.ini; vgutil ssh"
+
 alias vgupdate="vgwhat && cd ~/salt-developer && git checkout master && git pull --tags && ./scripts/bootstrap.sh"
-alias vgreboot="vgwhat && vghalt && vagrant up"
+alias vgreboot="vghalt && vagrant up"
 alias vghalt="vgwhat && cd ~/salt-developer && vagrant halt"
 alias vgwhat="! lsof ~/salt-developer/code/"
 
@@ -208,6 +215,14 @@ export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
 # init z! (https://github.com/rupa/z)
 #. ~/z.sh
 
+function compile() {
+    ghc -o haskell -O $1; ./haskell; rm *.hi; rm *.o
+}
+
+function runjava() {
+    mkdir classes && javac -d classes $1.java && echo "Running." && java -cp classes $1; rm -r classes
+}
+
 function vboxstop() {
     sudo /Library/"Application Support"/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh stop
 }
@@ -236,7 +251,7 @@ export HISTSIZE=100000                  # big big history
 export HISTFILESIZE=100000              # big big history
 shopt -s histappend                     # append to history, don't overwrite it
 
-# Save the history after each command finishes
+# Save the history after each command finishes. This means i don't lose history when there's multiple concurrent sessions
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 alias brn='for dirname in */; do cd $dirname; if [[ "* develop" != `git branch` ]] ; then echo -e "  /${PWD##*/}\n" `git branch --list | egrep --color=always "\*"` ; fi; cd ..; done'
@@ -278,7 +293,7 @@ function gpb {
         git fetch --tags
         git checkout $1
     fi
-    git pull && git submodule update && vgbuild dev; git status
+    git pull && git submodule update && vgbuild watch&
 }
 
 alias gb='git submodule update && vgbuild dev'
@@ -286,3 +301,7 @@ alias vgd='vim $(git diff --name-only)'
 
 alias stalemate='while :; do :; done& while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&while :; do :; done&'
 alias checkmate='kill $(jobs -p)'
+
+alias ghce='ghc -e ":m Data.List Data.Maybe" -e '
+
+export PATH="$HOME/.cargo/bin:$PATH"
