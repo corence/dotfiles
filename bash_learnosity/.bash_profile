@@ -7,6 +7,8 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
+alias w="cd ~/p/c/weather/weather"
+
 ### Git Auto completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
@@ -71,6 +73,7 @@ alias aapi="echo asapi or auapi"
 alias auapi="cd ~/salt-developer/code/api/author"
 alias asite="ausite"
 alias ausite="cd ~/salt-developer/code/site/author"
+alias eapi="cd ~/salt-developer/code/api/events"
 alias sapi="cd ~/salt-developer/code/api/schemas"
 alias sapiq="cd ~/salt-developer/code/api/schemas/src/data/questions"
 alias asapi="cd ~/salt-developer/code/api/assess/"
@@ -87,13 +90,15 @@ alias docsqe="cd ~/salt-developer/code/site/docs/www/demos/products/questionedit
 alias asf="cd ~/salt-developer/code/site/docs/www/demos/products/questionsapi"
 alias demos="cd ~/salt-developer/code/site/demos"
 alias dapi="cd ~/salt-developer/code/api/data"
+alias lp="cd src/latest/vendor/learnositypackages"
+alias dapic="find ~/salt-developer/code/api/data/reports -name 'index.html' | rg 'html/index.html' | xargs open"
 alias lscor="cd ~/salt-developer/code/lib/scoring"
 alias qscor="cd ~/salt-developer/code/api/questionsV2/www/latest/vendor/scoring"
+alias qlscor="cd ~/salt-developer/code/api/questionsV2/www/latest/vendor/scoring"
 alias sstates="cd ~/salt-developer/code/salt-states"
 alias mathquill="cd ~/workspace/mathquill"
 alias rui="make serve-local"
 alias tui="echo y | vgtest run -t test-ui-env -b chrome -e vg"
-alias vpnp="echo shanty census freeware homesick"
 alias serve="php -S localhost:8000"
 
 alias prodbuild="perl -pi -e 's/^mode=development$/mode=production/' config/system-config.ini; vgutil ssh"
@@ -117,22 +122,7 @@ alias sudo='sudo '
 # You must install Pygments first - "sudo easy_install Pygments"
 alias c='pygmentize -O style=monokai -f console256 -g'
 
-# Git
-# You must install Git first - ""
-alias gs='git status'
-alias gadd='git add ' # . or something specific
-alias gcommit='git commit -m' # requires you to type a commit message
-alias gpush='git push origin ' # branch name
 alias gsu='git submodule update'
-#alias gp='git pull && gsu && git status'
-#alias gpb='git pull && gsu && vgbuild dev && git status'
-alias v2dev='gpb V2-develop'
-alias dev='gpb develop'
-alias gbranch='git branch'
-alias deletebranch='git branch -D ' # branch name
-alias gstash='git stash'
-alias v3dev='gpb V3-develop'
-alias mw='vgutil ssh && make watch'
 
 gc() {
     git checkout $1
@@ -190,7 +180,7 @@ export RESET
 
 # Git branch details
 function parse_git_dirty() {
-    [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+    [[ $(git status 2> /dev/null | tail -n1) != *"working tree clean"* ]] && echo "*"
 }
 function parse_git_branch() {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
@@ -305,3 +295,5 @@ alias checkmate='kill $(jobs -p)'
 alias ghce='ghc -e ":m Data.List Data.Maybe" -e '
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

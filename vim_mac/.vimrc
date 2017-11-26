@@ -6,38 +6,43 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
-"Plugin 'bling/vim-bufferline'
-Plugin 'elmcast/elm-vim'
-Plugin 'nathanaelkane/vim-indent-guides'
 Plugin '2072/PHP-Indenting-for-VIm'
-Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bitc/vim-hdevtools'
+"Plugin 'bitc/vim-hdevtools'
+"Plugin 'bling/vim-bufferline'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'elmcast/elm-vim'
+Plugin 'godlygeek/tabular'
 Plugin 'jasoncodes/ctrlp-modified.vim'
+Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'luochen1990/rainbow'
+Plugin 'nathanaelkane/vim-indent-guides'
+"Plugin 'neovimhaskell/haskell-vim'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pangloss/vim-javascript'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'godlygeek/tabular'
-"Plugin 'neovimhaskell/haskell-vim'
-Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/tpope-vim-abolish'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/LargeFile'
-
 call vundle#end()
 
 filetype plugin indent on
 syntax on
 
-let g:vim_markdown_fenced_languages = ['haskell', 'java', 'javascript', 'ruby']
-let g:markdown_fenced_languages = ['haskell', 'java', 'javascript', 'ruby']
+let g:rainbow_active = 1
+
+let g:vim_markdown_fenced_languages = ['php', 'haskell', 'java', 'javascript', 'ruby']
+let g:markdown_fenced_languages = ['php', 'haskell', 'java', 'javascript', 'ruby']
 
 let g:ctrlp_map = "gQ"
 let g:ctrlp_mruf_max = 2888
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+let g:ctrlp_user_command = 'ag %s -s --nocolor --nogroup --hidden
                                       \ --ignore .git
                                       \ --ignore .DS_Store
                                       \ --ignore "**/*.pyc"
@@ -55,7 +60,7 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 "let g:haskell_indent_if = 3
 "let g:haskell_indent_case = 2
 "let g:haskell_indent_let = 4
-let g:haskell_indent_where = -1
+"let g:haskell_indent_where = -1
 "let g:haskell_indent_before_where = 2
 "let g:haskell_indent_after_bare_where = 2
 "let g:haskell_indent_do = 3
@@ -67,10 +72,10 @@ let g:java_allow_cpp_keywords=1
 
 " ### PLUGINS ###
 
-let g:syntastic_aggregate_errors = 1 
+let g:syntastic_aggregate_errors = 1
 let g:syntastic_id_checkers = 0
 autocmd FileType javascript let b:syntastic_checkers = ['eslint']
-autocmd FileType haskell let b:syntastic_checkers = ['hdevtools']
+" autocmd FileType haskell let b:syntastic_checkers = ['ghc-mod', 'hlint']
 let g:syntastic_html_tidy_ignore_errors = [' proprietary attribute ']
 
 autocmd BufEnter * EnableStripWhitespaceOnSave
@@ -79,6 +84,11 @@ autocmd BufEnter * EnableStripWhitespaceOnSave
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
+
+let g:syntastic_java_javac_classpath = "~/p/c/battlechimp/classes:~/p/c/battlechimp/lib/*"
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -104,6 +114,9 @@ set updatetime=250
 
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+au FileType haskell nnoremap <buffer> <silent> <F10> :HdevtoolsInfo<CR>
+
+" au FileType haskell let g:syntastic_mode_map={'mode': 'passive'}
 
 
 " Avoid loading unused plugins
@@ -575,3 +588,7 @@ set listchars=tab:>-
      let c_comment_strings=1
 
 let macvim_skip_colorscheme=1
+
+"let g:syntastic_debug = 255
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 0
