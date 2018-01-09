@@ -8,6 +8,7 @@ source "$fasd_cache"
 unset fasd_cache
 
 alias w="cd ~/p/c/weather/weather"
+alias wa="cd ~/p/c/advent/advent"
 
 ### Git Auto completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -61,11 +62,11 @@ alias highstate="cd ~/salt-developer && vgutil highstate"
 
 alias git="~/.git_wrapper.sh"
 
-alias edited="vim \$(git diff --name-only)"
-
 # Shortcuts to folders in my home directory
 alias code="cd ~/salt-developer/code"
 alias site="cd ~/salt-developer/code/site"
+alias lsite="cd ~/salt-developer/code/site/learnosity"
+alias wsite="cd ~/salt-developer/code/site/learnosity"
 alias qapi="cd ~/salt-developer/code/api/questionsV2"
 alias qt="cd ~/salt-developer/code/api/questionsV2/www/latest/tests"
 alias qeapi="cd ~/salt-developer/code/api/questioneditor"
@@ -285,6 +286,11 @@ function gpb {
     fi
     git pull && git submodule update && vgbuild watch&
 }
+
+function edited {
+    vim $(git diff $1 --name-only)
+}
+
 
 alias gb='git submodule update && vgbuild dev'
 alias vgd='vim $(git diff --name-only)'

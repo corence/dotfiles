@@ -2,6 +2,7 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -25,11 +26,12 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pangloss/vim-javascript'
 Plugin 'qpkorr/vim-bufkill'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'tpope/tpope-vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/LargeFile'
+Plugin 'w0rp/ale'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()
 
 filetype plugin indent on
@@ -42,7 +44,7 @@ let g:markdown_fenced_languages = ['php', 'haskell', 'java', 'javascript', 'ruby
 
 let g:ctrlp_map = "gQ"
 let g:ctrlp_mruf_max = 2888
-let g:ctrlp_user_command = 'ag %s -s --nocolor --nogroup --hidden
+let g:ctrlp_user_command = 'ag -s %s --nocolor --nogroup --hidden
                                       \ --ignore .git
                                       \ --ignore .DS_Store
                                       \ --ignore "**/*.pyc"
@@ -56,6 +58,28 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+" ----- w0rp/ale settings -----
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 4000
+let g:ale_max_signs = 50
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '▲'
+let g:ale_sign_column_always = 0
+let g:ale_open_list = 'on_save'
+
+let g:ale_php_phpcbf_standard = 'PSR2'
+let g:ale_php_phpcs_standard = 'PSR2'
+
+let g:ale_linters = {
+            \   'javascript': ['eslint'],
+            \   'php': ['php', 'phpcs'],
+            \}
+let g:ale_fixers = {
+            \   'generic': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'php': ['phpcbf'],
+            \}
 
 "let g:haskell_indent_if = 3
 "let g:haskell_indent_case = 2
@@ -82,7 +106,7 @@ autocmd BufEnter * EnableStripWhitespaceOnSave
 
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_php_checkers=['php', 'phpcs']
@@ -282,7 +306,6 @@ nnoremap <Leader>b :set nowrap<C-M>:set go+=b<C-M>
 nnoremap <Leader>T /\v\[([^:]+:){2}(..).*\n\zs\[([^:]+:){2}\2@!...<C-M>
 nnoremap <Leader>c :cd /<C-M>:cd %:h<C-M>:pwd<C-M>
 nnoremap <Leader>C :cd /<C-M>:cd %:h<C-M>:cd ..<C-M>:pwd<C-M>
-nnoremap <Leader>q P0<C-A>yy0
 " nnoremap <Leader>j :%s={={\r=ge<C-M>:%s=}=\r}=ge<C-M>:%s=,=,\r=ge<C-M>gg=G:noh<CR><C-L>
 nnoremap <Leader>j !!python -mjson.tool<C-M>
 vnoremap <Leader>j !python -mjson.tool<C-M>
@@ -343,6 +366,7 @@ nnoremap gF gf
 nnoremap g<C-F> :e <cfile><CR>
 "nmap gQ Q<C-\\>f
 nnoremap Q :CtrlPMRUFiles<CR>
+nnoremap <Leader>q :CtrlPBuffer<CR>
 
 "nnoremap gh :lr<CR>zz
 "nnoremap gj :lnext<CR>zz
